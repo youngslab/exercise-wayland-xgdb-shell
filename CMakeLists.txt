@@ -10,7 +10,7 @@ list(APPEND CMAKE_MODULE_PATH "${ECM_MODULE_PATH}")
 
 find_package(Wayland REQUIRED Client Cursor Egl)
 find_package(WaylandScanner REQUIRED )
-find_package(WaylandProtocols 1.15 REQUIRED)
+find_package(WaylandProtocols  REQUIRED)
 
 add_executable(${CMAKE_PROJECT_NAME} main.cpp )
 
@@ -19,12 +19,12 @@ target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC
 	${CMAKE_CURRENT_BINARY_DIR})
 
 target_link_libraries(${CMAKE_PROJECT_NAME} Wayland::Client Wayland::Egl
-	Wayland::Cursor)
+	Wayland::Cursor GLESv2 EGL)
 
 ecm_add_wayland_client_protocol(GLFW_WAYLAND_PROTOCOL_SOURCES
   PROTOCOL
-  "${WAYLAND_PROTOCOLS_PKGDATADIR}/unstable/xdg-shell/xdg-shell-unstable-v6.xml"
-  BASENAME xdg-shell-unstable-v6)
+  "/usr/share/wayland-protocols/stable/xdg-shell/xdg-shell.xml"
+  BASENAME xdg-shell)
 
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${GLFW_WAYLAND_PROTOCOL_SOURCES})
 
